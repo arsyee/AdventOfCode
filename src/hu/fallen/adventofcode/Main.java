@@ -20,7 +20,7 @@ public class Main {
             Solution4.printSolution();            
             break;
         case 5:
-            Solution5.printSolution();            
+            Solution5.printSolution();
             break;
         case 6:
             Solution6.printSolution();            
@@ -33,6 +33,9 @@ public class Main {
             break;
         case 9:
             Solution9.printSolution();            
+            break;
+        case 10:
+            Solution10.printSolution();            
             break;
         default:
             break;
