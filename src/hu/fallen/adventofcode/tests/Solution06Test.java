@@ -4,14 +4,14 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import hu.fallen.adventofcode.solutions.Solution6;
+import hu.fallen.adventofcode.solutions.Solution06;
 
-public class Solution6Test {
+public class Solution06Test {
 
     @Test
     public void test() {
         int[] input = {0, 2, 7, 0};
-        assertEquals(5,  Solution6.calculate(input));
+        assertEquals(5,  Solution06.calculate(input));
     }
 
 }

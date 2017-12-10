@@ -7,12 +7,12 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class Solution4 {
+public class Solution04 {
 
     public static void printSolution() {
         ArrayList<String> input;
         try {
-            input = (ArrayList<String>) Files.readAllLines(FileSystems.getDefault().getPath("res", "input4.txt"));
+            input = (ArrayList<String>) Files.readAllLines(FileSystems.getDefault().getPath("res", "input04.txt"));
         } catch (IOException e) {
             e.printStackTrace();
             return;

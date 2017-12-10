@@ -1,6 +1,6 @@
 package hu.fallen.adventofcode.solutions;
 
-public class Solution3 {
+public class Solution03 {
 
     public static void printSolution() {
         System.out.println(Integer.toString(calculate(265149)));

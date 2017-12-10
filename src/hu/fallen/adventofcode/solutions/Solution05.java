@@ -6,12 +6,12 @@ import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Solution5 {
+public class Solution05 {
 
     public static void printSolution() {
         ArrayList<String> input;
         try {
-            input = (ArrayList<String>) Files.readAllLines(FileSystems.getDefault().getPath("res", "input5.txt"));
+            input = (ArrayList<String>) Files.readAllLines(FileSystems.getDefault().getPath("res", "input05.txt"));
         } catch (IOException e) {
             e.printStackTrace();
             return;

@@ -8,31 +8,31 @@ public class Main {
         int day = 9;
         switch (day) {
         case 1:
-            Solution1.printSolution();            
+            Solution01.printSolution();            
             break;
         case 2:
-            Solution2.printSolution();            
+            Solution02.printSolution();            
             break;
         case 3:
-            Solution3.printSolution();            
+            Solution03.printSolution();            
             break;
         case 4:
-            Solution4.printSolution();            
+            Solution04.printSolution();            
             break;
         case 5:
-            Solution5.printSolution();
+            Solution05.printSolution();
             break;
         case 6:
-            Solution6.printSolution();            
+            Solution06.printSolution();            
             break;
         case 7:
-            Solution7.printSolution();            
+            Solution07.printSolution();            
             break;
         case 8:
-            Solution8.printSolution();            
+            Solution08.printSolution();            
             break;
         case 9:
-            Solution9.printSolution();            
+            Solution09.printSolution();            
             break;
         case 10:
             Solution10.printSolution();            

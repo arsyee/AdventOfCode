@@ -5,12 +5,12 @@ import java.nio.file.FileSystems;
 import java.nio.file.Files;
 import java.util.ArrayList;
 
-public class Solution9 {
+public class Solution09 {
 
     public static void printSolution() {
         ArrayList<String> input;
         try {
-            input = (ArrayList<String>) Files.readAllLines(FileSystems.getDefault().getPath("res", "input9.txt"));
+            input = (ArrayList<String>) Files.readAllLines(FileSystems.getDefault().getPath("res", "input09.txt"));
         } catch (IOException e) {
             e.printStackTrace();
             return;

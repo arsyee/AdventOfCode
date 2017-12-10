@@ -8,12 +8,12 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
-public class Solution8 {
+public class Solution08 {
 
     public static void printSolution() {
         ArrayList<String> input;
         try {
-            input = (ArrayList<String>) Files.readAllLines(FileSystems.getDefault().getPath("res", "input8.txt"));
+            input = (ArrayList<String>) Files.readAllLines(FileSystems.getDefault().getPath("res", "input08.txt"));
         } catch (IOException e) {
             e.printStackTrace();
             return;
