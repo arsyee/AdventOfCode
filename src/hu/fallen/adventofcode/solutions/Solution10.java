@@ -10,13 +10,10 @@ public class Solution10 {
     }
 
     public static int calculate(int length, int... input) {
-        int[] string = new int[length];
-        for (int i = 0; i < length; ++i) {
-            string[i] = i;
-        }
+        int[] string = initString(length);
         
         debug = false;
-        hashRound(length, string, input);
+        hashRound(string, input);
         debug = true;
         
         return string[0]*string[1];
@@ -26,7 +23,8 @@ public class Solution10 {
         return 0;
     }
     
-    private static void hashRound(int length, int[] string, final int[] input) {
+    private static void hashRound(int[] string, final int[] input) {
+        int length = string.length;
         int position = 0;
         int skip = 0;
         
@@ -60,4 +58,12 @@ public class Solution10 {
         System.out.println(result.toString());
     }
    
+    private static int[] initString(int length) {
+        int[] string = new int[length];
+        for (int i = 0; i < length; ++i) {
+            string[i] = i;
+        }
+        return string;
+    }
+
 }
