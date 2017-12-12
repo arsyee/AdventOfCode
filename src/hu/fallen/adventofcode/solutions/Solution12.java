@@ -9,7 +9,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map.Entry;
 
-import hu.fallen.adventofcode.helper.Pair;
+import hu.fallen.adventofcode.helper.Pair.IntPair;
 
 public class Solution12 {
 
@@ -26,7 +26,7 @@ public class Solution12 {
         System.out.println(calculate(input));
     }
 
-	public static Pair<Integer, Integer> calculate(List<String> input) {
+	public static IntPair calculate(List<String> input) {
 		HashMap<Integer, HashSet<Integer>> sections = parse(input);
 		int size = 0;
 		eliminate: do {
@@ -43,7 +43,7 @@ public class Solution12 {
 				}
 			}
 		} while (size > sections.size());
-		return new Pair<Integer, Integer>(sections.get(new Integer(0)).size(), sections.size());
+		return new IntPair(sections.get(new Integer(0)).size(), sections.size());
 	}
 
 	private static HashMap<Integer, HashSet<Integer>> parse(List<String> lines) {
