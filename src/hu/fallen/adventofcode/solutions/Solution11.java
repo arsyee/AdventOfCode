@@ -32,7 +32,7 @@ public class Solution11 {
             int distance = zero.distance(position);
             if (distance > max) max = distance;
         }
-        return new IntPair(new Hex(0, 0).distance(position), max);
+        return new IntPair(zero.distance(position), max);
     }
 
     // https://www.redblobgames.com/grids/hexagons/
