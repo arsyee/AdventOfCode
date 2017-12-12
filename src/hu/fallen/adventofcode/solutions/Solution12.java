@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.FileSystems;
 import java.nio.file.Files;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.HashMap;
@@ -14,19 +15,24 @@ public class Solution12 {
 
 	static boolean debug = false;
 	
+    public static void printSolution() {
+        ArrayList<String> input;
+        try {
+            input = (ArrayList<String>) Files.readAllLines(FileSystems.getDefault().getPath("res", "input12.txt"));
+            // input = Files.readAllLines(FileSystems.getDefault().getPath("res", "input.txt"), StandardCharsets.UTF_8);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return;
+        }
+        System.out.println(calculate(input));
+    }
+
 	/**
+	 * @param input 
 	 * @param args
 	 * @throws IOException 
 	 */
-	public static void main(String[] args) throws IOException {
-		List<String> input = Arrays.asList(("0 <-> 2\n"+
-					   					    "1 <-> 1\n"+
-					   					    "2 <-> 0, 3, 4\n"+
-					   					    "3 <-> 2, 4\n"+
-					   					    "4 <-> 2, 3, 6\n"+
-					   					    "5 <-> 6\n"+
-					   					    "6 <-> 4, 5").split("\n"));
-		input = Files.readAllLines(FileSystems.getDefault().getPath("res", "input.txt"), StandardCharsets.UTF_8);
+	public static int calculate(List<String> input) {
 		HashMap<Integer, HashSet<Integer>> sections = parse(input);
 		int size = 0;
 		eliminate: do {
@@ -43,8 +49,8 @@ public class Solution12 {
 				}
 			}
 		} while (size > sections.size());
-		System.out.println(sections.get(new Integer(0)).size());
-		System.out.println(sections.size());
+		return sections.get(new Integer(0)).size();
+		// System.out.println(sections.size());
 	}
 
 	private static HashMap<Integer, HashSet<Integer>> parse(List<String> lines) {
