@@ -6,6 +6,7 @@ import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.function.BiFunction;
 
 public class Solution04 {
 
@@ -17,31 +18,17 @@ public class Solution04 {
             e.printStackTrace();
             return;
         }
-        System.out.println(Integer.toString(calculate(input)));
-        System.out.println(Integer.toString(calculate2(input)));
+        System.out.println(Integer.toString(calculate(input, (a, b) -> a.equals(b))));
+        System.out.println(Integer.toString(calculate(input, (a, b) -> sort(a).equals(sort(b)))));
     }
     
-    public static int calculate(List<String> input) {
+    public static int calculate(List<String> input, BiFunction<String, String, Boolean> compare) {
         int count = 0;
         iteratelines: for (String line : input) {
             String[] texts = line.split(" ");
             for (int i = 0; i < texts.length; ++i) {
                 for (int j = i+1; j < texts.length; ++j) {
-                    if (texts[i].equals(texts[j])) continue iteratelines;
-                }
-            }
-            count++;
-        }
-        return count;
-    }
-
-    public static int calculate2(List<String> input) {
-        int count = 0;
-        iteratelines: for (String line : input) {
-            String[] texts = line.split(" ");
-            for (int i = 0; i < texts.length; ++i) {
-                for (int j = i+1; j < texts.length; ++j) {
-                    if (sort(texts[i]).equals(sort(texts[j]))) continue iteratelines;
+                    if (compare.apply(texts[i], texts[j])) continue iteratelines;
                 }
             }
             count++;
