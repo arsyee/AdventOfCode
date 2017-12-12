@@ -5,6 +5,8 @@ import java.nio.file.FileSystems;
 import java.nio.file.Files;
 import java.util.ArrayList;
 
+import hu.fallen.adventofcode.helper.Pair.IntPair;
+
 public class Solution09 {
 
     public static void printSolution() {
@@ -18,7 +20,7 @@ public class Solution09 {
         System.out.println(calculate(input.get(0)));
     }
 
-    public static int calculate(String input) {
+    public static IntPair calculate(String input) {
         int total = 0;
         int garbageCount = 0;
         int depth = 0;
@@ -54,9 +56,8 @@ public class Solution09 {
                 System.out.print(" ");
             }
         }
-        System.out.println(total);
-        System.out.println(garbageCount);
-        return total;
+        System.out.println();
+        return new IntPair(total, garbageCount);
     }
    
 }
