@@ -1,15 +1,15 @@
 package hu.fallen.adventofcode.solutions;
 
 import java.io.IOException;
-import java.nio.charset.StandardCharsets;
 import java.nio.file.FileSystems;
 import java.nio.file.Files;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashSet;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map.Entry;
+
+import hu.fallen.adventofcode.helper.Pair;
 
 public class Solution12 {
 
@@ -32,7 +32,7 @@ public class Solution12 {
 	 * @param args
 	 * @throws IOException 
 	 */
-	public static int calculate(List<String> input) {
+	public static Pair<Integer, Integer> calculate(List<String> input) {
 		HashMap<Integer, HashSet<Integer>> sections = parse(input);
 		int size = 0;
 		eliminate: do {
@@ -49,8 +49,7 @@ public class Solution12 {
 				}
 			}
 		} while (size > sections.size());
-		return sections.get(new Integer(0)).size();
-		// System.out.println(sections.size());
+		return new Pair<Integer, Integer>(sections.get(new Integer(0)).size(), sections.size());
 	}
 
 	private static HashMap<Integer, HashSet<Integer>> parse(List<String> lines) {

@@ -7,6 +7,7 @@ import java.util.List;
 
 import org.junit.Test;
 
+import hu.fallen.adventofcode.helper.Pair;
 import hu.fallen.adventofcode.solutions.Solution12;
 
 public class Solution12Test {
@@ -20,7 +21,7 @@ public class Solution12Test {
                 "4 <-> 2, 3, 6\n"+
                 "5 <-> 6\n"+
                 "6 <-> 4, 5").split("\n"));
-        assertEquals(6, Solution12.calculate(input));
+        assertEquals(new Pair<Integer, Integer>(6, 2), Solution12.calculate(input));
     }
 
 }
