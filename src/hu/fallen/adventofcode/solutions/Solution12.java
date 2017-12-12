@@ -1,4 +1,4 @@
-package hu.fallen.adventofcode;
+package hu.fallen.adventofcode.solutions;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
