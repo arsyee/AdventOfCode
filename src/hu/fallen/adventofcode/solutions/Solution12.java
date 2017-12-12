@@ -19,7 +19,6 @@ public class Solution12 {
         ArrayList<String> input;
         try {
             input = (ArrayList<String>) Files.readAllLines(FileSystems.getDefault().getPath("res", "input12.txt"));
-            // input = Files.readAllLines(FileSystems.getDefault().getPath("res", "input.txt"), StandardCharsets.UTF_8);
         } catch (IOException e) {
             e.printStackTrace();
             return;
@@ -27,11 +26,6 @@ public class Solution12 {
         System.out.println(calculate(input));
     }
 
-	/**
-	 * @param input 
-	 * @param args
-	 * @throws IOException 
-	 */
 	public static Pair<Integer, Integer> calculate(List<String> input) {
 		HashMap<Integer, HashSet<Integer>> sections = parse(input);
 		int size = 0;
