@@ -6,6 +6,8 @@ import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import hu.fallen.adventofcode.helper.Pair.IntPair;
+
 public class Solution11 {
 
     public static void printSolution() {
@@ -17,20 +19,9 @@ public class Solution11 {
             return;
         }
         System.out.println(calculate(input.get(0)));
-        System.out.println(calculate2(input.get(0)));
     }
     
-    public static int calculate(String input) {
-        String[] steps = input.split(",");
-        Hex position = new Hex(0, 0);
-        for (String step : steps) {
-            int dir = convertDirection(step);
-            position = position.neighbor(dir);
-        }
-        return new Hex(0, 0).distance(position);
-    }
-
-    public static int calculate2(String input) {
+    public static IntPair calculate(String input) {
         String[] steps = input.split(",");
         final Hex zero = new Hex(0, 0);
         Hex position = new Hex(0, 0);
@@ -41,9 +32,9 @@ public class Solution11 {
             int distance = zero.distance(position);
             if (distance > max) max = distance;
         }
-        return max;
+        return new IntPair(new Hex(0, 0).distance(position), max);
     }
-    
+
     // https://www.redblobgames.com/grids/hexagons/
     // using: flat-topped system with odd-q offset coordinates
     

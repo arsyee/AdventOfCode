@@ -21,4 +21,24 @@ public class Pair<K, V> extends SimpleEntry<K, V> {
                 super.getKey().equals(((Pair<?, ?>)o).getKey()) &&
                 super.getValue().equals(((Pair<?, ?>)o).getValue());
     }
+    
+    public Object get(int i) {
+        switch (i) {
+            case 0:
+                return super.getKey();
+            case 1:
+                return super.getValue();
+            default:
+                throw new IndexOutOfBoundsException();
+        }
+    }
+    
+    public static class IntPair extends Pair<Integer, Integer> {
+        private static final long serialVersionUID = 1L;
+
+        public IntPair(int arg0, int arg1) {
+            super(arg0, arg1);
+        }
+
+    }
 }
