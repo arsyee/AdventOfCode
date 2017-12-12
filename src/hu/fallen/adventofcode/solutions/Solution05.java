@@ -5,6 +5,9 @@ import java.nio.file.FileSystems;
 import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Function;
+
+import hu.fallen.adventofcode.helper.Pair.IntPair;
 
 public class Solution05 {
 
@@ -16,30 +19,14 @@ public class Solution05 {
             e.printStackTrace();
             return;
         }
-        System.out.println(Integer.toString(calculate(input)));
-        System.out.println(Integer.toString(calculate2(input)));
+        System.out.println(calculate(input));
     }
     
-    public static int calculate(List<String> input) {
-        int count = 0;
-        int[] pointers = new int[input.size()];
-        for (int i = 0; i < input.size(); ++i) {
-            pointers[i] = Integer.parseInt(input.get(i));
-        }
-        int instruction = 0;
-        try {
-            while (true) {
-                if (input.size() < 100) print(pointers, instruction);
-                int newInstruction = instruction+pointers[instruction];
-                ++count;
-                ++pointers[instruction];
-                instruction = newInstruction;
-            }
-        } catch (Exception e) {}
-        return count;
+    public static IntPair calculate(List<String> input) {
+        return new IntPair(calculate_f(input, a -> 1), calculate_f(input, a -> a >= 3 ? -1 : 1));
     }
 
-    public static int calculate2(List<String> input) {
+    public static int calculate_f(List<String> input, Function<Integer, Integer> increment) {
         int count = 0;
         int[] pointers = new int[input.size()];
         for (int i = 0; i < input.size(); ++i) {
@@ -51,7 +38,7 @@ public class Solution05 {
                 if (input.size() < 100) print(pointers, instruction);
                 int newInstruction = instruction+pointers[instruction];
                 ++count;
-                pointers[instruction] += pointers[instruction] >= 3 ? -1 : 1;
+                pointers[instruction] += increment.apply(pointers[instruction]);
                 instruction = newInstruction;
             }
         } catch (Exception e) {}
