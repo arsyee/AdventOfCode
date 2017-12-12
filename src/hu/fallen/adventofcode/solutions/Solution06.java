@@ -9,6 +9,8 @@ public class Solution06 {
     public static void printSolution() {
         int[] input = {2, 8, 8, 5, 4, 2, 3, 1, 5, 5, 1, 2, 15, 13, 5, 14};
         System.out.println(Integer.toString(calculate(input)));
+        // input is changed by the operation
+        // solution 2 is to execute the same function on the modified input!
         System.out.println(Integer.toString(calculate(input)));
     }
     
