@@ -8,6 +8,8 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
+import hu.fallen.adventofcode.helper.Pair.IntPair;
+
 public class Solution08 {
 
     public static void printSolution() {
@@ -20,10 +22,9 @@ public class Solution08 {
         }
         List<Instruction> instructions = extractInstructions(input);
         System.out.println(calculate(instructions));
-        System.out.println(calculate2(instructions));
     }
 
-    public static int calculate(List<Instruction> instructions) {
+    public static IntPair calculate(List<Instruction> instructions) {
         Register register = new Register();
         System.out.println("There are "+instructions.size()+" instructions");
         for (Instruction instruction : instructions) {
@@ -31,18 +32,7 @@ public class Solution08 {
                 register.increment(instruction.register, instruction.sign*register.fetch(instruction.value));
             }
         }
-        return register.max();
-    }
-
-    public static int calculate2(List<Instruction> instructions) {
-        Register register = new Register();
-        System.out.println("There are "+instructions.size()+" instructions");
-        for (Instruction instruction : instructions) {
-            if (register.evaluate(instruction.operator, instruction.operand1, instruction.operand2)) {
-                register.increment(instruction.register, instruction.sign*register.fetch(instruction.value));
-            }
-        }
-        return register.alltimeMax();
+        return new IntPair(register.max(), register.alltimeMax());
     }
 
     private static List<Instruction> extractInstructions(ArrayList<String> input) {
