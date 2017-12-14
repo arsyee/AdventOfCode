@@ -2,7 +2,7 @@ package hu.fallen.adventofcode.solutions;
 
 public class Solution10 {
 
-    static boolean debug = true;
+    public static boolean debug = true;
     
     public static void printSolution() {
         System.out.println(calculate(256, 63,144,180,149,1,255,167,84,125,65,188,0,2,254,229,24));
@@ -113,5 +113,9 @@ public class Solution10 {
         }
         return string;
     }
+
+	public static String knot(String string) {
+		return calculate2(256, string, 17, 31, 73, 47, 23);
+	}
 
 }
