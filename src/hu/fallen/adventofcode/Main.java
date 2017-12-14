@@ -5,7 +5,7 @@ import hu.fallen.adventofcode.solutions.*;
 public class Main {
 
     public static void main(String[] args) {
-        int day = 13;
+        int day = 14;
         switch (day) {
         case 1:
             Solution01.printSolution();            
@@ -45,6 +45,9 @@ public class Main {
             break;
         case 13:
             Solution13.printSolution();            
+            break;
+        case 14:
+            Solution14.printSolution();            
             break;
         default:
             break;
