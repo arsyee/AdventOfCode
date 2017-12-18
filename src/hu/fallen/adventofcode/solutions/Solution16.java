@@ -17,10 +17,7 @@ public class Solution16 {
             return;
         }
         System.out.println(calculate(input.get(0)));
-        long start = System.nanoTime();
-        System.out.println(calculateRepeat(input.get(0), 1000));
-        long end = System.nanoTime();
-        System.out.println((end-start));
+        System.out.println(calculateRepeat(input.get(0), 1000*1000*1000));
     }
 
 	public static String calculate(String string) {
@@ -38,12 +35,18 @@ public class Solution16 {
 	public static String calculateRepeat(String string, int length, int repetition) {
 		// System.out.println("calculateRepeat entered: "+string+", "+length+", "+repetition);
 		char[] position = prepare(length);
+		String original = new String(position);
+		boolean skipped = false;
 		List<Command> commands = buildCommandList(string.split(","));
 		for (int r = 0; r < repetition; ++r) {
 			for (Command command : commands) {
 				command.execute(position);
 			}
-			// System.out.println("  Position after "+(r+1)+" repetitions: "+new String(position));
+		    System.out.println("  Position after "+(r+1)+" repetitions: "+new String(position));
+			if (!skipped && original.equals(new String(position))) {
+				skipped = true;
+			    r = repetition / (r+1) * (r+1) - 1;
+			}
 		}
 		return new String(position);
 	}
