@@ -58,6 +58,30 @@ public class Main {
         case 17:
             Solution17.printSolution();            
             break;
+        case 18:
+            Solution18.printSolution();            
+            break;
+        case 19:
+            Solution19.printSolution();            
+            break;
+        case 20:
+            Solution20.printSolution();            
+            break;
+        case 21:
+            Solution21.printSolution();            
+            break;
+        case 22:
+            Solution22.printSolution();            
+            break;
+        case 23:
+            Solution23.printSolution();            
+            break;
+        case 24:
+            Solution24.printSolution();            
+            break;
+        case 25:
+            Solution25.printSolution();            
+            break;
         default:
             break;
         }
