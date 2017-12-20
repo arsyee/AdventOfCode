@@ -5,7 +5,6 @@ import java.nio.file.FileSystems;
 import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
 
 public class Solution18 {
 
@@ -25,16 +24,16 @@ public class Solution18 {
 	public static long calculate(ArrayList<String> input) {
 		Registers registers = new Registers();
 		long lastSound = 0;
-		int i = 0;
+		int instructionPointer = 0;
 		long x, y;
-		while (i < input.size()) {
-			final String line = input.get(i);
-			System.out.print("Processing line "+i+": "+line+": ");
+		while (instructionPointer < input.size()) {
+			final String line = input.get(instructionPointer);
+			// System.out.print("Processing line "+instructionPointer+": "+line+": ");
 			String[] tokens = line.split(" ");
 			switch (tokens[0]) {
 				case "snd":
 					lastSound = registers.getValue(tokens[1]);
-					System.out.println("value saved: "+lastSound);
+					// System.out.println("value saved: "+lastSound);
 					break;
 				case "set":
 					y = registers.getValue(tokens[2]);
@@ -54,7 +53,7 @@ public class Solution18 {
 					x = registers.getValue(tokens[1]);
 					y = registers.getValue(tokens[2]);
 					if (y == 0) {
-						System.out.println("division by zero: "+line);
+						// System.out.println("division by zero: "+line);
 						break;
 					}
 					registers.put(tokens[1].charAt(0), x % y);
@@ -70,18 +69,97 @@ public class Solution18 {
 					x = registers.getValue(tokens[1]);
 					y = registers.getValue(tokens[2]);
 					if (x <= 0) {
-						System.out.println("jump failed");
+						// System.out.println("jump failed");
 						break;
 					}
-					i = i + (int)y;
-					System.out.println("jumping to "+i);
+					instructionPointer = instructionPointer + (int)y;
+					// System.out.println("jumping to "+instructionPointer);
 					continue;
 			}
-			++i;
+			++instructionPointer;
 		}
 		throw new RuntimeException();
 	}
+	
+	public static long calculate2(ArrayList<String> input) {
+		Machine machine1 = new Machine(input);
+		while (true) {
+			machine1.execute();
+			if (machine1.lastSoundChanged) return machine1.lastSound;
+		}
+	}
 
+	private static class Machine {
+		Registers registers;
+		ArrayList<String> input;
+		int instructionPointer = 0;
+		
+		public long lastSound = 0;
+		public boolean lastSoundChanged = false;
+		
+		public Machine(ArrayList<String> input) {
+			registers = new Registers();
+			this.input = input;
+		}
+		
+		public void execute() {
+			lastSoundChanged = false;
+			final String line = input.get(instructionPointer);
+			long x, y;
+
+			// System.out.print("Processing line "+instructionPointer+": "+line+": ");
+			String[] tokens = line.split(" ");
+			switch (tokens[0]) {
+				case "snd":
+					lastSound = registers.getValue(tokens[1]);
+					// System.out.println("value saved: "+lastSound);
+					break;
+				case "set":
+					y = registers.getValue(tokens[2]);
+					registers.put(tokens[1].charAt(0), y);
+					break;
+				case "add":
+					x = registers.getValue(tokens[1]);
+					y = registers.getValue(tokens[2]);
+					registers.put(tokens[1].charAt(0), x + y);
+					break;
+				case "mul":
+					x = registers.getValue(tokens[1]);
+					y = registers.getValue(tokens[2]);
+					registers.put(tokens[1].charAt(0), x * y);
+					break;
+				case "mod":
+					x = registers.getValue(tokens[1]);
+					y = registers.getValue(tokens[2]);
+					if (y == 0) {
+						// System.out.println("division by zero: "+line);
+						break;
+					}
+					registers.put(tokens[1].charAt(0), x % y);
+					break;
+				case "rcv":
+					x = registers.getValue(tokens[1]);
+					if (x == 0) {
+						// System.out.println("rcv failed");
+						break;
+					}
+					if (lastSound != 0) lastSoundChanged = true;
+					break;
+				case "jgz":
+					x = registers.getValue(tokens[1]);
+					y = registers.getValue(tokens[2]);
+					if (x <= 0) {
+						// System.out.println("jump failed");
+						break;
+					}
+					instructionPointer = instructionPointer + (int)y;
+					// System.out.println("jumping to "+instructionPointer);
+					return;
+			}
+			++instructionPointer;
+		}
+	}
+	
     private static class Registers extends HashMap<Character, Long> {
 		private static final long serialVersionUID = 1L;
 		
@@ -89,7 +167,7 @@ public class Solution18 {
 
 		@Override
     	public Long put(Character key, Long value) {
-    		System.out.println(key + "->" + value);
+    		// System.out.println(key + "->" + value);
     		return super.put(key, value);
     	}
 		
@@ -104,8 +182,4 @@ public class Solution18 {
 		}
     }
     
-	public static int calculate2(ArrayList<String> input) {
-		return 0;
-	}
-
 }
