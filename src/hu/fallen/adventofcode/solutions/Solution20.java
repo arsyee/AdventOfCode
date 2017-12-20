@@ -38,6 +38,7 @@ public class Solution20 {
 	    StateList stateList = new StateList(input);
 	    do {
 	        stateList.removeCollosions();
+	        // System.out.println("!!! MOVE !!!");
 	        stateList.move();
 	    } while (!stateList.divergent());
 		return stateList.size();
@@ -45,6 +46,7 @@ public class Solution20 {
 
 	static class StateList extends ArrayList<State> {
         private static final long serialVersionUID = 1L;
+        int COUNTER_MAX = 10000;
 
         StateList(ArrayList<String> input) {
 	        for (String line : input) {
@@ -52,9 +54,16 @@ public class Solution20 {
 	        }
 	    }
 
-        int counter = 1000;
+        int counter = COUNTER_MAX;
         
         public boolean divergent() {
+        	// we need a more clever solution, most probably we cause a lot of overflow issues this way
+        	// * one better idea is to check when a point leaves the (int x int x int) field, but this is not definitive
+        	// * way better would be to wait until the universe is expanding, i.e
+        	//    - acceleration vector components point to the same direction as velocity components |
+        	//    - position components point to the same direction as velocity components            |-> so we are sure everything is going outwards
+        	//    => now check that everything is going outwards of the center of mass / 0,0,0
+        	//    => check that they are going different directions
             --counter;
             return counter == 0;
         }
@@ -71,7 +80,7 @@ public class Solution20 {
                 // System.out.println(state1);
                 for (State state2 : this) {
                     if (state1 != state2 && state1.p.equals(state2.p)) {
-                        System.out.println("Match found!");
+                        System.out.println("Match found!"+state2);
                         toBeRemoved.add(state1);
                         toBeRemoved.add(state2);
                     }
@@ -79,7 +88,7 @@ public class Solution20 {
             }
             for (State state : toBeRemoved) {
                 this.remove(state);
-                counter = 100;
+                counter = COUNTER_MAX;
             }
         }
 	}
@@ -111,10 +120,10 @@ public class Solution20 {
 	        p.x += v.x;
 	        
 	        v.y += a.y;
-	        p.y += a.y;
+	        p.y += v.y;
 	        
 	        v.z += a.z;
-	        p.z += a.z;
+	        p.z += v.z;
 	    }
 	    
 	    void move(int n) {

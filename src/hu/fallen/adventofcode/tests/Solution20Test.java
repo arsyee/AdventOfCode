@@ -19,13 +19,24 @@ public class Solution20Test {
 		assertEquals(0, Solution20.calculate(input));
 	}
 	
-    @Test
+    // @Test
     public void test2() {
         ArrayList<String> input = new ArrayList<String>();
         input.add("p=<-6,0,0>, v=< 3,0,0>, a=< 0,0,0>");
         input.add("p=<-4,0,0>, v=< 2,0,0>, a=< 0,0,0>");
         input.add("p=<-2,0,0>, v=< 1,0,0>, a=< 0,0,0>");
         input.add("p=< 3,0,0>, v=<-1,0,0>, a=< 0,0,0>");
+        
+        assertEquals(1, Solution20.calculate2(input));
+    }
+
+    @Test
+    public void test3() {
+        ArrayList<String> input = new ArrayList<String>();
+        input.add("p=<-6,0,0>, v=< 3,0,0>, a=< 0,0,0>");
+        input.add("p=<-4,0,0>, v=< 2,0,0>, a=< 0,0,0>");
+        input.add("p=<-2,0,0>, v=< 1,0,0>, a=< 0,0,0>");
+        input.add("p=< 3,0,0>, v=<-1,0,0>, a=< 1,0,0>");
         
         assertEquals(1, Solution20.calculate2(input));
     }
