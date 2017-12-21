@@ -5,6 +5,7 @@ import java.nio.file.FileSystems;
 import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedList;
 
 public class Solution18 {
 
@@ -82,10 +83,17 @@ public class Solution18 {
 	}
 	
 	public static long calculate2(ArrayList<String> input) {
-		Machine machine1 = new Machine(input);
+		Machine machine0 = new Machine(input, 0l);
+		Machine machine1 = new Machine(input, 1l);
+		Long message = null;
 		while (true) {
+			message = machine0.out.poll();
+			if (message != null) machine1.in.add(message);
+			message = machine1.out.poll();
+			if (message != null) machine0.in.add(message);
+			machine0.execute();
 			machine1.execute();
-			if (machine1.lastSoundChanged) return machine1.lastSound;
+			if (machine0.locked && machine1.locked) return machine1.out.counter;
 		}
 	}
 
@@ -94,25 +102,34 @@ public class Solution18 {
 		ArrayList<String> input;
 		int instructionPointer = 0;
 		
-		public long lastSound = 0;
-		public boolean lastSoundChanged = false;
+		public MessageQueue out;
+		public MessageQueue in;
 		
-		public Machine(ArrayList<String> input) {
+		public boolean locked = false;
+		
+		public Machine(ArrayList<String> input, long id) {
 			registers = new Registers();
+			registers.put('p', id);
+			out = new MessageQueue();
+			in = new MessageQueue();
 			this.input = input;
 		}
 		
 		public void execute() {
-			lastSoundChanged = false;
+			if (instructionPointer >= input.size()) {
+				locked = true;
+				return;
+			}
 			final String line = input.get(instructionPointer);
 			long x, y;
 
 			// System.out.print("Processing line "+instructionPointer+": "+line+": ");
 			String[] tokens = line.split(" ");
+			if (locked && !"rcv".equals(tokens[0])) throw new RuntimeException();
 			switch (tokens[0]) {
 				case "snd":
-					lastSound = registers.getValue(tokens[1]);
-					// System.out.println("value saved: "+lastSound);
+					out.add(registers.getValue(tokens[1]));
+					// System.out.println("value sent: "+lastSound);
 					break;
 				case "set":
 					y = registers.getValue(tokens[2]);
@@ -138,12 +155,13 @@ public class Solution18 {
 					registers.put(tokens[1].charAt(0), x % y);
 					break;
 				case "rcv":
-					x = registers.getValue(tokens[1]);
-					if (x == 0) {
-						// System.out.println("rcv failed");
-						break;
+					Long message = in.poll();
+					if (message == null) {
+						locked = true;
+						return; // so the instructionPointer doesn't get increased
 					}
-					if (lastSound != 0) lastSoundChanged = true;
+					locked = false;
+					registers.put(tokens[1].charAt(0), message);
 					break;
 				case "jgz":
 					x = registers.getValue(tokens[1]);
@@ -157,6 +175,16 @@ public class Solution18 {
 					return;
 			}
 			++instructionPointer;
+		}
+	}
+	
+	static class MessageQueue extends LinkedList<Long> {
+		private static final long serialVersionUID = 1L;
+		public long counter = 0;
+		@Override
+		public boolean add(Long e) {
+			counter++;
+			return super.add(e);
 		}
 	}
 	
