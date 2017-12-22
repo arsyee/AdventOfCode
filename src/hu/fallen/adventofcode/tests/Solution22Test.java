@@ -12,8 +12,14 @@ public class Solution22Test {
 	
 	@Test
 	public void test() {
-		assertEquals(0, Solution22.calculate(new ArrayList<String>()));
-		assertEquals(0, Solution22.calculate2(new ArrayList<String>()));
+		ArrayList<String> input = new ArrayList<String>();
+		input.add("..#");
+        input.add("#..");
+        input.add("...");
+        assertEquals(41, Solution22.calculate(input, 70));
+        assertEquals(5587, Solution22.calculate(input, 10000));
+		assertEquals(26, Solution22.calculate2(input, 100));
+        assertEquals(2511944, Solution22.calculate2(input, 10000000));
 	}
 	
 }
