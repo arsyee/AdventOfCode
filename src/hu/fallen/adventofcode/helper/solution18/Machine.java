@@ -3,9 +3,9 @@ package hu.fallen.adventofcode.helper.solution18;
 import java.util.ArrayList;
 
 public class Machine {
-	Registers registers;
+	protected Registers registers;
 	ArrayList<String> input;
-	int instructionPointer = 0;
+	protected int instructionPointer = 0;
 	
 	public MessageQueue out;
 	public MessageQueue in;
@@ -102,6 +102,10 @@ public class Machine {
         x = registers.getValue(tokens[1]);
         y = registers.getValue(tokens[2]);
         registers.put(tokens[1].charAt(0), x * y);
+    }
+
+    public Registers getRegisters() {
+        return registers;
     }
     
     public void setDebug(boolean b) {
