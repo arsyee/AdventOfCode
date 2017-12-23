@@ -12,6 +12,8 @@ public class Machine {
 	
 	public boolean locked = false;
 	
+	private boolean DEBUG = false;
+	
 	public Machine(ArrayList<String> input, long id) {
 		registers = new Registers();
 		registers.put('p', id);
@@ -28,13 +30,12 @@ public class Machine {
 		final String line = input.get(instructionPointer);
 		long x, y;
 
-		// System.out.print("Processing line "+instructionPointer+": "+line+": ");
+		debug("Processing line "+instructionPointer+": "+line+": ");
 		String[] tokens = line.split(" ");
 		if (locked && !"rcv".equals(tokens[0])) throw new RuntimeException();
 		switch (tokens[0]) {
 			case "snd":
 				out.add(registers.getValue(tokens[1]));
-				// System.out.println("value sent: "+lastSound);
 				break;
 			case "set":
 				y = registers.getValue(tokens[2]);
@@ -45,16 +46,19 @@ public class Machine {
 				y = registers.getValue(tokens[2]);
 				registers.put(tokens[1].charAt(0), x + y);
 				break;
+            case "sub":
+                x = registers.getValue(tokens[1]);
+                y = registers.getValue(tokens[2]);
+                registers.put(tokens[1].charAt(0), x - y);
+                break;
 			case "mul":
-				x = registers.getValue(tokens[1]);
-				y = registers.getValue(tokens[2]);
-				registers.put(tokens[1].charAt(0), x * y);
+			    mul(tokens);
 				break;
 			case "mod":
 				x = registers.getValue(tokens[1]);
 				y = registers.getValue(tokens[2]);
 				if (y == 0) {
-					// System.out.println("division by zero: "+line);
+					debugln("division by zero: "+line);
 					break;
 				}
 				registers.put(tokens[1].charAt(0), x % y);
@@ -72,13 +76,44 @@ public class Machine {
 				x = registers.getValue(tokens[1]);
 				y = registers.getValue(tokens[2]);
 				if (x <= 0) {
-					// System.out.println("jump failed");
+					debugln("jump failed");
 					break;
 				}
 				instructionPointer = instructionPointer + (int)y;
-				// System.out.println("jumping to "+instructionPointer);
+				debugln("jumping to "+instructionPointer);
 				return;
+            case "jnz":
+                x = registers.getValue(tokens[1]);
+                y = registers.getValue(tokens[2]);
+                if (x == 0) {
+                    debugln("jump failed");
+                    break;
+                }
+                instructionPointer = instructionPointer + (int)y;
+                debugln("jumping to "+instructionPointer);
+                return;
 		}
 		++instructionPointer;
 	}
+
+    protected void mul(String[] tokens) {
+        long x;
+        long y;
+        x = registers.getValue(tokens[1]);
+        y = registers.getValue(tokens[2]);
+        registers.put(tokens[1].charAt(0), x * y);
+    }
+    
+    public void setDebug(boolean b) {
+        DEBUG = b;
+        registers.setDebug(b);
+    }
+    
+    private void debug(String string) {
+        if (DEBUG) System.out.print(string);
+    }
+    
+    private void debugln(String string) {
+        if (DEBUG) System.out.println(string);
+    }
 }

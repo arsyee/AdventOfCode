@@ -6,10 +6,12 @@ public class Registers extends HashMap<Character, Long> {
 	private static final long serialVersionUID = 1L;
 	
 	long lastSound = 0;
+	
+	private boolean DEBUG = false;
 
 	@Override
 	public Long put(Character key, Long value) {
-		// System.out.println(key + "->" + value);
+		if (DEBUG) System.out.println(key + "->" + value);
 		return super.put(key, value);
 	}
 	
@@ -22,4 +24,8 @@ public class Registers extends HashMap<Character, Long> {
 		} catch (Exception e) { }
 		return 0;
 	}
+
+    public void setDebug(boolean b) {
+        DEBUG = b;
+    }
 }
