@@ -24,8 +24,8 @@ public class Solution18Test {
             return;
         }
 
-		assertEquals(2951, Solution18.calculate(new ArrayList<String>()));
-		assertEquals(7366, Solution18.calculate2(new ArrayList<String>()));
+		assertEquals(2951, Solution18.calculate(input));
+		assertEquals(7366, Solution18.calculate2(input));
 	}
 	
 }
