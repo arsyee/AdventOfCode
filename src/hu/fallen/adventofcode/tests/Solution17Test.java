@@ -10,8 +10,8 @@ public class Solution17Test {
 	
 	@Test
 	public void test() {
-		assertEquals(0, Solution17.calculate(0));
-		assertEquals(0, Solution17.calculate2(0));
+		assertEquals(180, Solution17.calculate(316));
+		assertEquals(13326437, Solution17.calculate2(316));
 	}
 	
 }
