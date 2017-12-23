@@ -2,6 +2,9 @@ package hu.fallen.adventofcode.tests;
 
 import static org.junit.Assert.*;
 
+import java.io.IOException;
+import java.nio.file.FileSystems;
+import java.nio.file.Files;
 import java.util.ArrayList;
 
 import org.junit.Test;
@@ -12,8 +15,17 @@ public class Solution18Test {
 	
 	@Test
 	public void test() {
-		assertEquals(0, Solution18.calculate(new ArrayList<String>()));
-		assertEquals(0, Solution18.calculate2(new ArrayList<String>()));
+        String mark = "18";
+        ArrayList<String> input;
+        try {
+            input = (ArrayList<String>) Files.readAllLines(FileSystems.getDefault().getPath("res", "input"+mark+".txt"));
+        } catch (IOException e) {
+            e.printStackTrace();
+            return;
+        }
+
+		assertEquals(2951, Solution18.calculate(new ArrayList<String>()));
+		assertEquals(7366, Solution18.calculate2(new ArrayList<String>()));
 	}
 	
 }

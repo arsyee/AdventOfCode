@@ -5,7 +5,7 @@ import hu.fallen.adventofcode.solutions.*;
 public class Main {
 
     public static void main(String[] args) {
-        int day = 22;
+        int day = 18;
         switch (day) {
         case 1:
             Solution01.printSolution();            
