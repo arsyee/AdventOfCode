@@ -21,8 +21,6 @@ public class Solution24 {
         }
         System.out.println("Calculate 1");
         System.out.println(calculate(input));
-        System.out.println("Calculate 1 (variant)");
-        System.out.println(calculate1(input));
         System.out.println("Calculate 2");
         System.out.println(calculate2(input));
     }
@@ -74,14 +72,7 @@ public class Solution24 {
     }
 
     private static void debug(String s) {
-        if (recursionDepth == maxRecursionDepth) {
-            // System.out.println("deep we are again: " + maxRecursionDepth);
-        }
-        if (recursionDepth > maxRecursionDepth) {
-            maxRecursionDepth = recursionDepth;
-            // System.out.println("there is always deeper: " + maxRecursionDepth);
-        }
-        if (recursionDepth > DEBUGDEPTH) return;
+
         for (int i = 0; i < printDepth + 1; ++i) {
             System.out.print(" ");
         }
